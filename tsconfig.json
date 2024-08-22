@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "types": ["vitest/globals"],
+    "target": "ESNext",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "removeComments": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src", "tests", "**/*.spec.ts"],
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "require": ["dotenv-expand/config", "tsconfig-paths/register"]
+  }
+}

@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+
+  server:
+    container_name: digital-account-dock-server
+    environment:
+      NODE_ENV: development
+      API_MAJOR_VERSION: ${API_MAJOR_VERSION}
+      SERVER_PORT: ${SERVER_PORT}
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+    networks:
+      - digital-account-dock-network
+
+  database:
+    container_name: digital-account-dock-database
+    image: postgres:16.4-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - digital-account-dock-network
+
+networks:
+  digital-account-dock-network:
+    driver: bridge

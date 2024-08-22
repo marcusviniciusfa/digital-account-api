@@ -1,0 +1,10 @@
+{
+  "watch": ["src"],
+  "ext": "ts",
+  "ignore": ["**/*.spec.ts"],
+  "exec": "node -r ts-node/register --env-file=.env src/server.ts",
+  "verbose": false,
+  "env": {
+    "NODE_ENV": "local"
+  }
+}

@@ -1,0 +1,15 @@
+/node_modules
+/assets
+/testes
+/coverage
+/data
+package*
+.eslintrc
+.gitignore
+.prettierrc
+docker-compose.yml
+Dockerfile
+esbuild.config.mjs
+README.md
+tsconfig.*
+vitest.config.mts
