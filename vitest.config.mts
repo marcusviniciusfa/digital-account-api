@@ -8,7 +8,7 @@ export default defineConfig({
     includeSource: ['**/*.spec.ts'],
     coverage: {
       all: true,
-      include: ['src/**/*'],
+      include: ['src/application/use-cases', 'src/cpf.ts'],
     },
     reporters: 'verbose',
   },
