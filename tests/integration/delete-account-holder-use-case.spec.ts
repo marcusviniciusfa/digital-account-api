@@ -25,6 +25,6 @@ describe('delete an account holder use case', () => {
     const accountHolderExists = await accountHolderRepository.getById(createdAccountHolder.id);
 
     //then
-    expect(accountHolderExists).toBe(undefined);
+    expect(accountHolderExists).toBe(null);
   });
 });

@@ -11,13 +11,13 @@ export class AccountHolderFakeRepository extends FakeRepository<AccountHolder> i
     return accountHolder;
   }
 
-  async getById(id: string): Promise<AccountHolder | undefined> {
+  async getById(id: string): Promise<AccountHolder | null> {
     const accountHolder = this.inMemoryDatabase.get(id);
-    return accountHolder;
+    return accountHolder || null;
   }
 
-  async getByCpf(cpf: string): Promise<AccountHolder | undefined> {
-    let accountHolder: AccountHolder | undefined;
+  async getByCpf(cpf: string): Promise<AccountHolder | null> {
+    let accountHolder: AccountHolder | null = null;
     this.inMemoryDatabase.forEach(someAccountHolder => {
       if (someAccountHolder.cpf === cpf) {
         accountHolder = someAccountHolder;

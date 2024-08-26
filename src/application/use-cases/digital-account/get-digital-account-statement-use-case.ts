@@ -40,7 +40,7 @@ export interface GetDigitalAccountStatementOutputDTO {
   id: string;
   digitalAccountId: string;
   balanceBefore: number;
-  type: AccountOperationType;
+  type: keyof typeof AccountOperationType;
   amount: number;
   createdAt: Date;
 }

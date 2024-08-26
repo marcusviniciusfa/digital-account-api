@@ -8,7 +8,7 @@ import { WithdrawMoneyFromDigitalAccountUseCase } from '@src/application/use-cas
 import { DateHelper } from '@src/helpers/date-helper';
 import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
 import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
-import { StatementRepositoryPort } from '@src/ports/statement-repository-port';
+import { AccountOperationType, StatementRepositoryPort } from '@src/ports/statement-repository-port';
 import { randomUUID } from 'crypto';
 import { AccountHolderFakeRepository } from 'tests/adapters/repositories/account-holder-fake-repository';
 import { DigitalAccountFakeRepository } from 'tests/adapters/repositories/digital-account-fake-repository';
@@ -75,7 +75,7 @@ describe('get an digital account statement use case', () => {
 
     //then
     expect(statement).toHaveLength(2);
-    expect(statement[0]).toHaveProperty('type', 'withdraw');
+    expect(statement[0]).toHaveProperty('type', AccountOperationType.WITHDRAW);
     expect(statement[0].balanceBefore + statement[0].amount).toBe(digitalAccount.balance);
     expect(statement[0]).toHaveProperty('createdAt', expect.any(Date));
   });

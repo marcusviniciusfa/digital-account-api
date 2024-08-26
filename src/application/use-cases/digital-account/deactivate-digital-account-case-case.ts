@@ -1,4 +1,3 @@
-import { DateHelper } from '@src/helpers/date-helper';
 import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
 import { UseCasePort } from '@src/ports/use-case-port';
 
@@ -12,11 +11,7 @@ export class DeactivateDigitalAccountUseCase
     if (!digitalAccount) {
       throw new Error('digital account not found');
     }
-    const digitalAccountToUpdate = {
-      ...digitalAccount,
-      deletedAt: DateHelper.localToUTC(),
-    };
-    await this.digitalAccountRepository.update(digitalAccountToUpdate);
+    await this.digitalAccountRepository.delete(digitalAccountId);
   }
 }
 

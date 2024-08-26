@@ -6,6 +6,7 @@ import { GetDigitalAccountUseCase } from '@src/application/use-cases/digital-acc
 import { UnblockDigitalAccountUseCase } from '@src/application/use-cases/digital-account/unlock-digital-account-use-case';
 import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
 import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
+import { randomUUID } from 'crypto';
 import { DelayHelper } from 'tests/helpers/delay-helper';
 import { AccountHolderFakeRepository } from '../adapters/repositories/account-holder-fake-repository';
 import { DigitalAccountFakeRepository } from '../adapters/repositories/digital-account-fake-repository';
@@ -72,15 +73,10 @@ describe('unlock an digital account use case', () => {
   });
 
   it('should throw an exception in case of trying to block a digital account that does not exist', async () => {
-    //given
-    const digitalAccount = DtoFactoryHelper.makeCreateAccountHolderInput();
-
     try {
-      //when
-      await unlockDigitalAccountUseCase.execute({ digitalAccountId: digitalAccount.id });
+      await unlockDigitalAccountUseCase.execute({ digitalAccountId: randomUUID() });
       expect.unreachable();
     } catch (error) {
-      //then
       expect((error as Error).message).toBe('digital account not found');
     }
   });

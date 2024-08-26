@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URI")
+}
+
+model AccountHolders {
+  id              String            @id @db.Uuid
+  name            String
+  cpf             String            @unique
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  digitalAccounts DigitalAccounts[]
+
+  @@index([cpf])
+  @@map(name: "account_holders")
+}
+
+model DigitalAccounts {
+  id                String              @id @db.Uuid
+  holderId          String              @db.Uuid
+  holder            AccountHolders      @relation(fields: [holderId], references: [id], onDelete: Cascade)
+  agency            String              @db.Char(4)
+  accountNumber     String              @db.Char(9)
+  balance           Float               @db.DoublePrecision
+  isBlocked         Boolean             @default(false)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  deletedAt         DateTime?
+  accountOperations AccountOperations[]
+
+  @@index([deletedAt])
+  @@index([accountNumber])
+  @@map(name: "digital_accounts")
+}
+
+enum AccountOperationType {
+  DEPOSIT
+  WITHDRAW
+}
+
+model AccountOperations {
+  id               String               @id @db.Uuid
+  digitalAccountId String               @db.Uuid
+  digitalAccount   DigitalAccounts      @relation(fields: [digitalAccountId], references: [id], onDelete: Restrict)
+  type             AccountOperationType
+  amount           Float                @db.DoublePrecision
+  balanceBefore    Float                @db.DoublePrecision
+  createdAt        DateTime             @default(now())
+
+  @@index([digitalAccountId])
+  @@map(name: "account_operations")
+}

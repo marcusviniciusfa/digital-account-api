@@ -1,34 +1,32 @@
 import { DigitalAccount, DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
 
 export class DigitalAccountFakeRepository implements DigitalAccountRepositoryPort {
-  private inMemoryDatabase: Map<string, DigitalAccount>;
+  private inMemoryDatabase: Map<string, DigitalAccount & { deletedAt?: Date }>;
 
   constructor() {
-    this.inMemoryDatabase = new Map<string, DigitalAccount>();
+    this.inMemoryDatabase = new Map<string, DigitalAccount & { deletedAt?: Date }>();
   }
 
   async create(digitalAccount: DigitalAccount): Promise<DigitalAccount> {
-    if (this.inMemoryDatabase.size === 0) {
-      digitalAccount.accountNumber = (1).toString().padStart(9, '0');
-      this.inMemoryDatabase.set(digitalAccount.id, digitalAccount);
-      return digitalAccount;
+    let accountNumberExists = false;
+    this.inMemoryDatabase.forEach(account => {
+      if (account.accountNumber === digitalAccount.accountNumber) {
+        accountNumberExists = true;
+      }
+    });
+    if (accountNumberExists) {
+      throw new Error('account number already exists', { cause: 'account_number_already_exists' });
     }
-    const accounts = Array.from(this.inMemoryDatabase.values());
-    const accountsDescOrderByCreatedAt = accounts.sort(
-      (accountA, accountB) => accountB.createdAt.getTime() - accountA.createdAt.getTime(),
-    );
-    const nextAccountNumber = Number(accountsDescOrderByCreatedAt[0].accountNumber) + 1;
-    digitalAccount.accountNumber = nextAccountNumber.toString().padStart(9, '0');
     this.inMemoryDatabase.set(digitalAccount.id, digitalAccount);
     return digitalAccount;
   }
 
-  async getById(id: string): Promise<DigitalAccount | undefined> {
+  async getById(id: string): Promise<DigitalAccount | null> {
     const digitalAccount = this.inMemoryDatabase.get(id);
     if (!digitalAccount?.deletedAt) {
-      return digitalAccount;
+      return digitalAccount || null;
     }
-    return;
+    return null;
   }
 
   async update(digitalAccount: DigitalAccount): Promise<DigitalAccount> {
@@ -44,5 +42,9 @@ export class DigitalAccountFakeRepository implements DigitalAccountRepositoryPor
       }
     });
     return digitalAccountsByHolder;
+  }
+
+  async delete(id: string): Promise<void> {
+    this.inMemoryDatabase.delete(id);
   }
 }

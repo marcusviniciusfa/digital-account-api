@@ -1,8 +1,9 @@
 export interface DigitalAccountRepositoryPort {
-  create(digitalAccount: Omit<DigitalAccount, 'accountNumber'>): Promise<DigitalAccount>;
-  getById(id: string): Promise<DigitalAccount | undefined>;
+  create(digitalAccount: DigitalAccount): Promise<DigitalAccount>;
+  getById(id: string): Promise<DigitalAccount | null>;
   getByHolderId(holderId: string): Promise<DigitalAccount[]>;
   update(digitalAccount: DigitalAccount): Promise<DigitalAccount>;
+  delete(id: string): Promise<void>;
 }
 
 export type DigitalAccount = {
@@ -14,5 +15,4 @@ export type DigitalAccount = {
   isBlocked: boolean;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt?: Date;
 };

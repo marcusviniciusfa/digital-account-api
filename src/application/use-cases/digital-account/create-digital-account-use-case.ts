@@ -1,8 +1,8 @@
 import { DateHelper } from '@src/helpers/date-helper';
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
-import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
+import { AccountHolder, AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
+import { DigitalAccount, DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
 import { UseCasePort } from '@src/ports/use-case-port';
-import { randomUUID } from 'crypto';
+import { randomInt, randomUUID } from 'crypto';
 
 export class CreateDigitalAccountUseCase
   implements UseCasePort<CreateDigitalAccountInputDTO, Promise<CreateDigitalAccountOutputDTO>>
@@ -13,21 +13,39 @@ export class CreateDigitalAccountUseCase
   ) {}
 
   async execute(input: CreateDigitalAccountInputDTO): Promise<CreateDigitalAccountOutputDTO> {
-    const accountHould = await this.accountHolderRepository.getByCpf(input.cpf);
-    if (!accountHould) {
+    const accountHolder = await this.accountHolderRepository.getByCpf(input.cpf);
+    if (!accountHolder) {
       throw new Error('account holder not found');
     }
-    const digitalAccount = {
+    // O ideal seria fazer uma chamada assíncrona para um microsserviço de criação de conta digital para ele se encarregar de criar o número da conta
+    const digitalAccountCreated = await this.tryCreateDigitalAccount(accountHolder);
+    return digitalAccountCreated;
+  }
+
+  async tryCreateDigitalAccount(accountHolder: AccountHolder): Promise<DigitalAccount> {
+    const digitalAccountToCreate = this.makeDigitalAccount(accountHolder);
+    try {
+      const digitalAccountCreated = await this.digitalAccountRepository.create(digitalAccountToCreate);
+      return digitalAccountCreated;
+    } catch (error) {
+      if ((error as Error).cause === 'account_number_already_exists') {
+        return this.tryCreateDigitalAccount(accountHolder);
+      }
+      throw error;
+    }
+  }
+
+  makeDigitalAccount(accountHolder: AccountHolder): DigitalAccount {
+    return {
       id: randomUUID(),
-      holderId: accountHould.id,
+      holderId: accountHolder.id,
       agency: (1).toString().padStart(4, '0'),
+      accountNumber: randomInt(1, 999999999).toString().padStart(9, '0'),
       balance: 0,
       isBlocked: false,
       createdAt: DateHelper.localToUTC(),
       updatedAt: DateHelper.localToUTC(),
     };
-    const output = this.digitalAccountRepository.create(digitalAccount);
-    return output;
   }
 }
 
@@ -39,6 +57,7 @@ export interface CreateDigitalAccountOutputDTO {
   id: string;
   holderId: string;
   agency: string;
+  accountNumber: string;
   balance: number;
   isBlocked: boolean;
   createdAt: Date;

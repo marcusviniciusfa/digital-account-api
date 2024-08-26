@@ -9,19 +9,14 @@ export enum OrderDirection {
 }
 
 export enum AccountOperationType {
-  DEPOSIT = 'deposit',
-  WITHDRAW = 'withdraw',
+  DEPOSIT = 'DEPOSIT',
+  WITHDRAW = 'WITHDRAW',
 }
-
-export const AccountOperationTypeValues = {
-  deposit: AccountOperationType.DEPOSIT,
-  withdraw: AccountOperationType.WITHDRAW,
-};
 
 export interface getAllByDigitalAccountOptions {
   startDate: Date;
   endDate: Date;
-  type?: AccountOperationType;
+  type?: keyof typeof AccountOperationType;
   order?: OrderDirection;
 }
 
@@ -29,7 +24,7 @@ export type AccountOperation = {
   id: string;
   digitalAccountId: string;
   balanceBefore: number;
-  type: AccountOperationType;
+  type: keyof typeof AccountOperationType;
   amount: number;
   createdAt: Date;
 };
