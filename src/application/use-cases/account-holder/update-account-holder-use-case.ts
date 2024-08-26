@@ -1,5 +1,5 @@
 import { DateHelper } from '@src/helpers/date-helper';
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
+import { AccountHolderRepositoryPort } from '@src/ports';
 import { UseCasePort } from '@src/ports/use-case-port';
 
 export class UpdateAccountHolderUseCase

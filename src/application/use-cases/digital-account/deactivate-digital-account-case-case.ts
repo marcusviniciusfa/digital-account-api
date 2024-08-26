@@ -1,5 +1,4 @@
-import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
-import { UseCasePort } from '@src/ports/use-case-port';
+import { DigitalAccountRepositoryPort, UseCasePort } from '@src/ports';
 
 export class DeactivateDigitalAccountUseCase
   implements UseCasePort<DeactivateDigitalAccountInputDTO, Promise<DeactivateDigitalAccountOutputDTO>>

@@ -1,20 +1,26 @@
-import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder/create-account-holder-use-case';
-import { CreateDigitalAccountUseCase } from '@src/application/use-cases/digital-account/create-digital-account-use-case';
-import { DeactivateDigitalAccountUseCase } from '@src/application/use-cases/digital-account/deactivate-digital-account-case-case';
-import { DepositMoneyIntoDigitalAccountUseCase } from '@src/application/use-cases/digital-account/deposit-money-into-digital-account-use-case';
-import { GetDigitalAccountStatementUseCase } from '@src/application/use-cases/digital-account/get-digital-account-statement-use-case';
-import { GetDigitalAccountUseCase } from '@src/application/use-cases/digital-account/get-digital-account-use-case';
-import { WithdrawMoneyFromDigitalAccountUseCase } from '@src/application/use-cases/digital-account/withdraw-money-from-digital-account-use-case';
+import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder';
+import {
+  CreateDigitalAccountUseCase,
+  DeactivateDigitalAccountUseCase,
+  DepositMoneyIntoDigitalAccountUseCase,
+  GetDigitalAccountStatementUseCase,
+  GetDigitalAccountUseCase,
+  WithdrawMoneyFromDigitalAccountUseCase,
+} from '@src/application/use-cases/digital-account';
 import { DateHelper } from '@src/helpers/date-helper';
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
-import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
-import { AccountOperationType, StatementRepositoryPort } from '@src/ports/statement-repository-port';
+import {
+  AccountHolderRepositoryPort,
+  AccountOperationType,
+  DigitalAccountRepositoryPort,
+  StatementRepositoryPort,
+} from '@src/ports';
 import { randomUUID } from 'crypto';
-import { AccountHolderFakeRepository } from 'tests/adapters/repositories/account-holder-fake-repository';
-import { DigitalAccountFakeRepository } from 'tests/adapters/repositories/digital-account-fake-repository';
-import { StatementFakeRepository } from 'tests/adapters/repositories/statement-fake-repository ';
-import { DelayHelper } from 'tests/helpers/delay-helper';
-import { DtoFactoryHelper } from '../helpers/dto-factory-helper';
+import {
+  AccountHolderFakeRepository,
+  DigitalAccountFakeRepository,
+  StatementFakeRepository,
+} from 'tests/database/repositories';
+import { DelayHelper, DtoFactoryHelper } from 'tests/helpers';
 
 describe('get an digital account statement use case', () => {
   let accountHolderRepository: AccountHolderRepositoryPort;

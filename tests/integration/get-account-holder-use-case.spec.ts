@@ -1,9 +1,8 @@
-import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder/create-account-holder-use-case';
-import { GetAccountHolderUseCase } from '@src/application/use-cases/account-holder/get-account-holder-use-case';
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
+import { CreateAccountHolderUseCase, GetAccountHolderUseCase } from '@src/application/use-cases/account-holder';
+import { AccountHolderRepositoryPort } from '@src/ports';
 import { randomUUID } from 'crypto';
+import { AccountHolderFakeRepository } from 'tests/database/repositories';
 import { DtoFactoryHelper } from 'tests/helpers/dto-factory-helper';
-import { AccountHolderFakeRepository } from '../adapters/repositories/account-holder-fake-repository';
 
 describe('get an account holder use case', () => {
   let accountHolderRepository: AccountHolderRepositoryPort;

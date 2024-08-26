@@ -1,4 +1,4 @@
-import { AccountHolder, AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
+import { AccountHolder, AccountHolderRepositoryPort } from '@src/ports';
 import { FakeRepository } from '../../database/fake-repository';
 
 export class AccountHolderFakeRepository extends FakeRepository<AccountHolder> implements AccountHolderRepositoryPort {

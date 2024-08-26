@@ -1,14 +1,13 @@
-import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder/create-account-holder-use-case';
-import { BlockDigitalAccountUseCase } from '@src/application/use-cases/digital-account/block-digital-account-use-case';
-import { CreateDigitalAccountUseCase } from '@src/application/use-cases/digital-account/create-digital-account-use-case';
-import { GetDigitalAccountUseCase } from '@src/application/use-cases/digital-account/get-digital-account-use-case';
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
-import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
+import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder';
+import {
+  BlockDigitalAccountUseCase,
+  CreateDigitalAccountUseCase,
+  GetDigitalAccountUseCase,
+} from '@src/application/use-cases/digital-account';
+import { AccountHolderRepositoryPort, DigitalAccountRepositoryPort } from '@src/ports';
 import { randomUUID } from 'crypto';
-import { DelayHelper } from 'tests/helpers/delay-helper';
-import { AccountHolderFakeRepository } from '../adapters/repositories/account-holder-fake-repository';
-import { DigitalAccountFakeRepository } from '../adapters/repositories/digital-account-fake-repository';
-import { DtoFactoryHelper } from '../helpers/dto-factory-helper';
+import { AccountHolderFakeRepository, DigitalAccountFakeRepository } from 'tests/database/repositories';
+import { DelayHelper, DtoFactoryHelper } from 'tests/helpers';
 
 describe('block an digital account use case', () => {
   let accountHolderRepository: AccountHolderRepositoryPort;

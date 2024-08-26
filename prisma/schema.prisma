@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
@@ -11,8 +12,8 @@ model AccountHolders {
   id              String            @id @db.Uuid
   name            String
   cpf             String            @unique
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  createdAt       DateTime
+  updatedAt       DateTime
   digitalAccounts DigitalAccounts[]
 
   @@index([cpf])
@@ -27,8 +28,8 @@ model DigitalAccounts {
   accountNumber     String              @db.Char(9)
   balance           Float               @db.DoublePrecision
   isBlocked         Boolean             @default(false)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt         DateTime
+  updatedAt         DateTime
   deletedAt         DateTime?
   accountOperations AccountOperations[]
 
@@ -45,11 +46,11 @@ enum AccountOperationType {
 model AccountOperations {
   id               String               @id @db.Uuid
   digitalAccountId String               @db.Uuid
-  digitalAccount   DigitalAccounts      @relation(fields: [digitalAccountId], references: [id], onDelete: Restrict)
+  digitalAccount   DigitalAccounts      @relation(fields: [digitalAccountId], references: [id], onDelete: Cascade)
   type             AccountOperationType
   amount           Float                @db.DoublePrecision
   balanceBefore    Float                @db.DoublePrecision
-  createdAt        DateTime             @default(now())
+  createdAt        DateTime
 
   @@index([digitalAccountId])
   @@map(name: "account_operations")

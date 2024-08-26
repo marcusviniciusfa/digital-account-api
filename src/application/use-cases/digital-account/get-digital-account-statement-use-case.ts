@@ -1,6 +1,10 @@
-import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
-import { AccountOperationType, OrderDirection, StatementRepositoryPort } from '@src/ports/statement-repository-port';
-import { UseCasePort } from '@src/ports/use-case-port';
+import {
+  AccountOperationType,
+  DigitalAccountRepositoryPort,
+  OrderDirection,
+  StatementRepositoryPort,
+  UseCasePort,
+} from '@src/ports';
 
 export class GetDigitalAccountStatementUseCase
   implements UseCasePort<GetDigitalAccountStatementInputDTO, Promise<GetDigitalAccountStatementOutputDTO[]>>

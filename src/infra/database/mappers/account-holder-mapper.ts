@@ -1,5 +1,5 @@
 import { AccountHolders as PrismaAccountHolder } from '@prisma/client';
-import { AccountHolder } from '@src/ports/account-holder-repository-port';
+import { AccountHolder } from '@src/ports';
 
 export class AccountHolderMapper {
   static toPrisma(accountHolder: AccountHolder): PrismaAccountHolder {

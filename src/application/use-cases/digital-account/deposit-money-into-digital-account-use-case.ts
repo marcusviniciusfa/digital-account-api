@@ -1,7 +1,5 @@
-import { DateHelper } from '@src/helpers/date-helper';
-import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
-import { AccountOperationType, StatementRepositoryPort } from '@src/ports/statement-repository-port';
-import { UseCasePort } from '@src/ports/use-case-port';
+import { DateHelper } from '@src/helpers';
+import { AccountOperationType, DigitalAccountRepositoryPort, StatementRepositoryPort, UseCasePort } from '@src/ports';
 import { randomUUID } from 'crypto';
 
 export class DepositMoneyIntoDigitalAccountUseCase
@@ -53,6 +51,7 @@ export interface DepositMoneyIntoDigitalAccountOutputDTO {
   id: string;
   holderId: string;
   agency: string;
+  accountNumber: string;
   balance: number;
   isBlocked: boolean;
   createdAt: Date;

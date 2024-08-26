@@ -1,7 +1,11 @@
-import { DateHelper } from '@src/helpers/date-helper';
-import { AccountHolder, AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
-import { DigitalAccount, DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
-import { UseCasePort } from '@src/ports/use-case-port';
+import { DateHelper } from '@src/helpers';
+import {
+  AccountHolder,
+  AccountHolderRepositoryPort,
+  DigitalAccount,
+  DigitalAccountRepositoryPort,
+  UseCasePort,
+} from '@src/ports';
 import { randomInt, randomUUID } from 'crypto';
 
 export class CreateDigitalAccountUseCase

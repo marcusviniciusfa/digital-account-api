@@ -1,6 +1,6 @@
-import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder/create-account-holder-use-case';
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
-import { AccountHolderFakeRepository } from '../adapters/repositories/account-holder-fake-repository';
+import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder';
+import { AccountHolderRepositoryPort } from '@src/ports';
+import { AccountHolderFakeRepository } from 'tests/database/repositories';
 import { DtoFactoryHelper } from '../helpers/dto-factory-helper';
 
 describe('create an account holder use case', () => {

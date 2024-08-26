@@ -1,6 +1,5 @@
-import { DateHelper } from '@src/helpers/date-helper';
-import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
-import { UseCasePort } from '@src/ports/use-case-port';
+import { DateHelper } from '@src/helpers';
+import { DigitalAccountRepositoryPort, UseCasePort } from '@src/ports';
 
 export class BlockDigitalAccountUseCase
   implements UseCasePort<BlockDigitalAccountInputDTO, Promise<BlockDigitalAccountOutputDTO>>

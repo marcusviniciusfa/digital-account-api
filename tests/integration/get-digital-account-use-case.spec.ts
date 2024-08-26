@@ -1,12 +1,12 @@
-import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder/create-account-holder-use-case';
-import { CreateDigitalAccountUseCase } from '@src/application/use-cases/digital-account/create-digital-account-use-case';
-import { DeactivateDigitalAccountUseCase } from '@src/application/use-cases/digital-account/deactivate-digital-account-case-case';
-import { GetDigitalAccountUseCase } from '@src/application/use-cases/digital-account/get-digital-account-use-case';
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
-import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
+import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder';
+import {
+  CreateDigitalAccountUseCase,
+  DeactivateDigitalAccountUseCase,
+  GetDigitalAccountUseCase,
+} from '@src/application/use-cases/digital-account';
+import { AccountHolderRepositoryPort, DigitalAccountRepositoryPort } from '@src/ports';
 import { randomUUID } from 'crypto';
-import { AccountHolderFakeRepository } from '../adapters/repositories/account-holder-fake-repository';
-import { DigitalAccountFakeRepository } from '../adapters/repositories/digital-account-fake-repository';
+import { AccountHolderFakeRepository, DigitalAccountFakeRepository } from 'tests/database/repositories';
 import { DtoFactoryHelper } from '../helpers/dto-factory-helper';
 
 describe('get an digital account use case', () => {

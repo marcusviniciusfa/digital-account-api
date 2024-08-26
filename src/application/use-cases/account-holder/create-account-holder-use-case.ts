@@ -1,7 +1,6 @@
 import { Cpf } from '@src/cpf';
-import { DateHelper } from '@src/helpers/date-helper';
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
-import { UseCasePort } from '@src/ports/use-case-port';
+import { DateHelper } from '@src/helpers';
+import { AccountHolderRepositoryPort, UseCasePort } from '@src/ports';
 import { randomUUID } from 'crypto';
 
 export class CreateAccountHolderUseCase

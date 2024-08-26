@@ -1,5 +1,4 @@
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
-import { UseCasePort } from '@src/ports/use-case-port';
+import { AccountHolderRepositoryPort, UseCasePort } from '@src/ports';
 
 export class GetAccountHolderUseCase
   implements UseCasePort<GetAccountHolderInputDTO, Promise<GetAccountHolderOutputDTO>>

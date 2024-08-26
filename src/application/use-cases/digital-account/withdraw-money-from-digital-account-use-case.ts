@@ -1,7 +1,5 @@
-import { DateHelper } from '@src/helpers/date-helper';
-import { DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
-import { AccountOperationType, StatementRepositoryPort } from '@src/ports/statement-repository-port';
-import { UseCasePort } from '@src/ports/use-case-port';
+import { DateHelper } from '@src/helpers';
+import { AccountOperationType, DigitalAccountRepositoryPort, StatementRepositoryPort, UseCasePort } from '@src/ports';
 import { randomUUID } from 'crypto';
 
 const DAILY_LIMIT = 2000;
@@ -56,14 +54,18 @@ export class WithdrawMoneyFromDigitalAccountUseCase
     if (amount > DAILY_LIMIT) {
       return false;
     }
+    const startDate = DateHelper.startOfDayUTC();
+    const endDate = DateHelper.endOfDayUTC();
     const accountOperations = await this.statementRepository.getAllByDigitalAccount(digitalAccountId, {
       type: AccountOperationType.WITHDRAW,
-      startDate: DateHelper.startOfDayUTC(),
-      endDate: DateHelper.endOfDayUTC(),
+      startDate,
+      endDate,
     });
+    console.log(accountOperations);
     const totalWithdrawnToday = accountOperations.reduce((total, accountOperation) => {
       return total + Math.abs(accountOperation.amount);
     }, 0);
+    console.log(totalWithdrawnToday);
     return totalWithdrawnToday + amount > DAILY_LIMIT ? false : true;
   }
 }

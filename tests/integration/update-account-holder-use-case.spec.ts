@@ -1,10 +1,8 @@
-import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder/create-account-holder-use-case';
-import { UpdateAccountHolderUseCase } from '@src/application/use-cases/account-holder/update-account-holder-use-case';
-import { AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
+import { CreateAccountHolderUseCase, UpdateAccountHolderUseCase } from '@src/application/use-cases/account-holder';
+import { AccountHolderRepositoryPort } from '@src/ports';
 import { randomUUID } from 'crypto';
-import { DelayHelper } from 'tests/helpers/delay-helper';
-import { AccountHolderFakeRepository } from '../adapters/repositories/account-holder-fake-repository';
-import { DtoFactoryHelper } from '../helpers/dto-factory-helper';
+import { AccountHolderFakeRepository } from 'tests/database/repositories';
+import { DelayHelper, DtoFactoryHelper } from 'tests/helpers';
 
 describe('update an account holder use case', () => {
   let accountHolderRepository: AccountHolderRepositoryPort;

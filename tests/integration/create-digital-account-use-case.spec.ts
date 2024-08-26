@@ -1,12 +1,10 @@
-import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder/create-account-holder-use-case';
-import { CreateDigitalAccountUseCase } from '@src/application/use-cases/digital-account/create-digital-account-use-case';
+import { CreateAccountHolderUseCase } from '@src/application/use-cases/account-holder';
+import { CreateDigitalAccountUseCase } from '@src/application/use-cases/digital-account';
 import { DateHelper } from '@src/helpers/date-helper';
-import { AccountHolder, AccountHolderRepositoryPort } from '@src/ports/account-holder-repository-port';
-import { DigitalAccount, DigitalAccountRepositoryPort } from '@src/ports/digital-account-repository-port';
+import { AccountHolder, AccountHolderRepositoryPort, DigitalAccount, DigitalAccountRepositoryPort } from '@src/ports';
 import { randomInt, randomUUID } from 'crypto';
-import { AccountHolderFakeRepository } from '../adapters/repositories/account-holder-fake-repository';
-import { DigitalAccountFakeRepository } from '../adapters/repositories/digital-account-fake-repository';
-import { DtoFactoryHelper } from '../helpers/dto-factory-helper';
+import { AccountHolderFakeRepository, DigitalAccountFakeRepository } from 'tests/database/repositories';
+import { DtoFactoryHelper } from 'tests/helpers';
 
 // todo: ajustar os testes para o novo cenário de criação de conta digital direto no caso de uso
 describe('create an digital account use case', () => {

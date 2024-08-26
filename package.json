@@ -1,10 +1,10 @@
 {
-  "name": "digital-account-dock-api",
+  "name": "digital-account-api",
   "main": "server.js",
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/marcusviniciusfa/digital-account-dock-api"
+    "url": "https://github.com/marcusviniciusfa/digital-account-api"
   },
   "author": {
     "name": "Marcus Vinicius Ferreira Aragão",
@@ -22,7 +22,8 @@
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "eslint --ext .js,.ts --fix .",
     "dev": "nodemon",
-    "build": "node ./esbuild.config.mjs"
+    "build": "rimraf dist && node ./esbuild.config.mjs",
+    "prisma:studio": "prisma studio"
   },
   "devDependencies": {
     "@types/chance": "^1.1.6",
@@ -51,6 +52,8 @@
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "axios": "^1.7.2",
-    "express": "^4.19.2"
+    "esbuild-plugin-copy": "^2.1.1",
+    "express": "^4.19.2",
+    "zod": "^3.23.8"
   }
 }

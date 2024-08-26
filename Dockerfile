@@ -6,4 +6,4 @@ COPY dist .
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["node", "main.js"]

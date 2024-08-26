@@ -1,12 +1,12 @@
-import { StatementAccountMapper } from '../mappers/statemente-mapper';
-import { prismaClient } from '../prisma-client';
 import {
   AccountOperation,
   AccountOperationType,
   getAllByDigitalAccountOptions,
   OrderDirection,
   StatementRepositoryPort,
-} from './../../../ports/statement-repository-port';
+} from '../../../ports/statement-repository-port';
+import { StatementAccountMapper } from '../mappers/statemente-mapper';
+import { prismaClient } from '../prisma-client';
 
 const DEFAULT_ORDER_DIRECTION = OrderDirection.DESC;
 
